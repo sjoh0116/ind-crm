@@ -4,8 +4,6 @@ import StepButtons from '@/components/Register/StepButtons.jsx';
 import { Field, FormWrap, SALES_PERSONS, useInfoForm } from '@/components/Register/InfoForm.jsx';
 
 const INITIAL_FORM = {
-  companyName: '',
-  gstNumber: '',
   contactName: '',
   mobile: '',
   email: '',
@@ -17,7 +15,7 @@ const INITIAL_FORM = {
   salesPerson: '',
 };
 
-export default function CommercialInfo(){
+export default function ResidentialInfo(){
   const navigate = useNavigate();
   const { form, handleChange } = useInfoForm(INITIAL_FORM);
 
@@ -33,25 +31,13 @@ export default function CommercialInfo(){
     <FormWrap>
       <form onSubmit={handleSubmit}>
         <div className='grid'>
-          <Field id='companyName' label='Company / Establishment Name' required>
-            <input id='companyName' name='companyName' type='text' required
-              placeholder='e.g. MKB Global Services'
-              value={form.companyName} onChange={handleChange} />
-          </Field>
-
-          <Field id='gstNumber' label='GST Number'>
-            <input id='gstNumber' name='gstNumber' type='text' maxLength={15}
-              placeholder='e.g. UNKKHRAH78R'
-              value={form.gstNumber} onChange={handleChange} />
-          </Field>
-
           <Field id='contactName' label='Contact Person / Full Name' required>
             <input id='contactName' name='contactName' type='text' required autoComplete='name'
-              placeholder='e.g. Rahul Sharma'
+              placeholder='e.g. Rahul Sharam'
               value={form.contactName} onChange={handleChange} />
           </Field>
 
-          <Field id='mobile' label='Mobile Number (OTP Login)' required>
+          <Field id='mobile' label='Mobile Number' required>
             <input id='mobile' name='mobile' type='tel' required inputMode='numeric' autoComplete='tel'
               pattern='0?[6-9][0-9]{9}' title='10자리 휴대폰 번호 (앞자리 0 선택)'
               placeholder='e.g. 09554645567'

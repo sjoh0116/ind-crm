@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-// key: 각 단계 페이지 URL의 마지막 경로 (예: /commercial/information → 'information')
 export const REGISTER_STEPS = [
   { key: 'category', label: 'Category' },
   { key: 'information', label: 'Information' },
@@ -9,7 +8,6 @@ export const REGISTER_STEPS = [
   { key: 'sign', label: 'T&C & Sign' },
 ];
 
-// 매칭되는 단계가 없으면 (예: '/') 1단계로 본다
 function getCurrentStep(pathname){
   const segment = pathname.split('/').filter(Boolean).pop();
   const index = REGISTER_STEPS.findIndex(step => step.key === segment);
@@ -115,7 +113,6 @@ const StepWrap = styled.section`
           }
         }
 
-        /* 완료된 단계 뒤의 연결선 */
         &.done::after {
           background:#0072B9;
         }
