@@ -2,15 +2,15 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const REGISTER_STEPS = [
-  { key: 'category', label: 'Category' },
-  { key: 'information', label: 'Information' },
-  { key: 'plan', label: 'Plan & AMC' },
-  { key: 'sign', label: 'T&C & Sign' },
+  { keys: ['category'], label: 'Category' },
+  { keys: ['information'], label: 'Information' },
+  { keys: ['plan', 'property'], label: 'Plan & AMC' },
+  { keys: ['sign', 'complete'], label: 'T&C & Sign' },
 ];
 
 function getCurrentStep(pathname){
   const segment = pathname.split('/').filter(Boolean).pop();
-  const index = REGISTER_STEPS.findIndex(step => step.key === segment);
+  const index = REGISTER_STEPS.findIndex(step => step.keys.includes(segment));
   return index === -1 ? 1 : index + 1;
 }
 
@@ -22,7 +22,7 @@ export default function RegisterStep(){
     <StepWrap>
       <div className='inner'>
         <ul>
-          {REGISTER_STEPS.map(({ key, label }, i) => {
+          {REGISTER_STEPS.map(({ label }, i) => {
             const step = i + 1;
             const className = [
               step <= current && 'active',
@@ -30,7 +30,7 @@ export default function RegisterStep(){
             ].filter(Boolean).join(' ');
 
             return (
-              <li key={key} className={className} aria-current={step === current ? 'step' : undefined}>
+              <li key={label} className={className} aria-current={step === current ? 'step' : undefined}>
                 <span>{step}</span>
                 <strong>{label}</strong>
               </li>

@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import StepButtons from '@/components/Register/StepButtons.jsx'
+import { useRegistration } from '@/context/RegistrationContext.jsx';
+import { SKIP_VALIDATION } from '@/config.js';
+import SelectBox from '@/components/Register/SelectBox.jsx';
 
 const CUSTOMER_TYPES = [
   {
@@ -19,9 +22,35 @@ const CUSTOMER_TYPES = [
   },
 ];
 
+const INDUSTRY_CATEGORIES = [
+  'Retail & Wholesale',
+  'Hospitality & Hotels',
+  'Healthcare',
+  'Education',
+  'Financial Services',
+  'Real Estate & Property Management',
+  'Corporate & Office Spaces',
+  'Warehousing & Logistics',
+  'Food & Beverage',
+  'Manufacturing & Industrial',
+  'Entertainment & Recreation',
+  'Construction & Infrastructure',
+];
+
 export default function TestHome(){
   const navigate = useNavigate();
-  const [customerType, setCustomerType] = useState(null);
+  const { registration, startRegistration } = useRegistration();
+  const [customerType, setCustomerType] = useState(registration.category?.customerType ?? null);
+  const [industryCategory, setIndustryCategory] = useState(registration.category?.industryCategory ?? '');
+
+  const isCommercial = customerType === 'commercial';
+  // Commercial은 업종 카테고리까지 선택해야 다음 단계로 진행
+  const canContinue = Boolean(customerType) && (SKIP_VALIDATION || !isCommercial || Boolean(industryCategory));
+
+  const handleNext = () => {
+    startRegistration({ customerType, industryCategory: isCommercial ? industryCategory : '' });
+    navigate(`/${customerType}/information`);
+  };
 
   return (
     <SectionWrap>
@@ -49,6 +78,23 @@ export default function TestHome(){
             ))}
           </ul>
 
+          {isCommercial && (
+            <div className='category'>
+              <label htmlFor='industryCategory'>Commercial Industry Category</label>
+              <SelectBox
+                id='industryCategory'
+                className={industryCategory ? '' : 'placeholder'}
+                value={industryCategory}
+                onChange={(e) => setIndustryCategory(e.target.value)}
+              >
+                <option value=''>e.g. Hospitality & Hotels</option>
+                {INDUSTRY_CATEGORIES.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </SelectBox>
+            </div>
+          )}
+
           <div className='system-desc'>
             <strong>System Note :</strong>
             <p>Customer ID will be automatically generated upon submission (e.g UST-26-AMC-GZB-HOME-1672) (UST-Year-Plan-City-Property Type-number)</p>
@@ -56,8 +102,8 @@ export default function TestHome(){
 
           <StepButtons
             onBack={() => navigate('/register')}
-            onNext={() => navigate(`/${customerType}/information`)}
-            nextDisabled={!customerType}
+            onNext={handleNext}
+            nextDisabled={!canContinue}
           />
         </div>
       </SectionWrap>
@@ -143,6 +189,48 @@ const SectionWrap = styled.section`
             line-height:1.4;
             color:#000;
           }
+        }
+      }
+    }
+
+    .category {
+      display:flex;
+      flex-direction: column;
+      gap:14px;
+      margin-top:30px;
+
+      label {
+        font-weight:600;
+        font-size:26px;
+        line-height:1.2;
+        color:#000;
+      }
+
+      select {
+        width:100%;
+        height:52px;
+        padding:0 56px 0 14px;
+        border:1px solid #333;
+        border-radius:8px;
+        background-color:#fff;
+        font-family:inherit;
+        font-size:20px;
+        color:#000;
+        outline:none;
+        cursor:pointer;
+        transition:border-color .2s, box-shadow .2s;
+
+        &.placeholder {
+          color:#8A8A8A;
+        }
+
+        &:focus {
+          border-color:#0072B9;
+          box-shadow:0 0 0 3px rgba(0, 114, 185, .15);
+        }
+
+        option {
+          color:#000;
         }
       }
     }

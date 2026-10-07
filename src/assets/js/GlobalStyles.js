@@ -171,8 +171,6 @@ const globalStyles = createGlobalStyle`
 
   select {
     -webkit-appearance: none;
-    background: url('https://ust-erp.s3.ap-northeast-2.amazonaws.com/renewal/icon/chevron-down.svg') top 50% right 10px no-repeat;
-    background-size: 18px 18px;
   }
 
   a {

@@ -11,12 +11,12 @@ export function useInfoForm(initialForm){
     setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
-  return { form, handleChange };
+  return { form, setForm, handleChange };
 }
 
-export function Field({ id, label, required, full, children }){
+export function Field({ id, label, required, full, area, children }){
   return (
-    <div className={`field${full ? ' full' : ''}`}>
+    <div className={`field${full ? ' full' : ''}`} style={area ? { gridArea: area } : undefined}>
       <label htmlFor={id}>
         {label}
         {required && <em aria-hidden='true'>*</em>}
@@ -47,7 +47,8 @@ export const FormWrap = styled.section`
       grid-column:1 / -1;
     }
 
-    > label {
+    > label,
+    > .label {
       font-weight:600;
       font-size:26px;
       line-height:1.2;
@@ -63,6 +64,7 @@ export const FormWrap = styled.section`
   input[type='text'],
   input[type='tel'],
   input[type='email'],
+  input[type='date'],
   select {
     width:100%;
     height:52px;
@@ -93,8 +95,6 @@ export const FormWrap = styled.section`
 
   select {
     padding-right:56px;
-    background-position:right 18px center;
-    background-size:24px 24px;
     cursor:pointer;
 
     &.placeholder {

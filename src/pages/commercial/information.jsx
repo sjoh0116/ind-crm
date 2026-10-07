@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
 import StepButtons from '@/components/Register/StepButtons.jsx';
+import { useRegistration } from '@/context/RegistrationContext.jsx';
+import { SKIP_VALIDATION } from '@/config.js';
+import SelectBox from '@/components/Register/SelectBox.jsx';
 import { Field, FormWrap, SALES_PERSONS, useInfoForm } from '@/components/Register/InfoForm.jsx';
 
 const INITIAL_FORM = {
@@ -19,7 +22,8 @@ const INITIAL_FORM = {
 
 export default function CommercialInfo(){
   const navigate = useNavigate();
-  const { form, handleChange } = useInfoForm(INITIAL_FORM);
+  const { registration, saveStep } = useRegistration();
+  const { form, handleChange } = useInfoForm(registration.information ?? INITIAL_FORM);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,11 +31,13 @@ export default function CommercialInfo(){
       ...form,
       serviceAddress: form.sameAsBilling ? form.billingAddress : form.serviceAddress,
     };
+    saveStep('information', data);
+    navigate('/commercial/plan');
   };
 
   return (
     <FormWrap>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate={SKIP_VALIDATION}>
         <div className='grid'>
           <Field id='companyName' label='Company / Establishment Name' required>
             <input id='companyName' name='companyName' type='text' required
@@ -98,14 +104,14 @@ export default function CommercialInfo(){
           </Field>
 
           <Field id='salesPerson' label='Sales Person'>
-            <select id='salesPerson' name='salesPerson'
+            <SelectBox id='salesPerson' name='salesPerson'
               className={form.salesPerson ? '' : 'placeholder'}
               value={form.salesPerson} onChange={handleChange}>
               <option value=''>Vanshika (Employee Code)</option>
               {SALES_PERSONS.map(({ code, name }) => (
                 <option key={code} value={code}>{name} ({code})</option>
               ))}
-            </select>
+            </SelectBox>
           </Field>
         </div>
 
