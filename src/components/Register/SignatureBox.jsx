@@ -22,10 +22,13 @@ export default function SignatureBox({ label, required, error, onChange }){
     // 고해상도 화면에서도 선이 흐려지지 않도록 실제 픽셀 크기를 맞추고, 크기가 바뀌면 기존 서명을 다시 그림
     const resize = () => {
       const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      // 상위 레이아웃에 CSS zoom이 걸려 있으면 포인터 좌표(화면 기준)와 캔버스 좌표가 어긋나므로
+      // 화면에 보이는 크기 / 레이아웃 크기 비율만큼 보정
+      const zoom = canvas.offsetWidth ? canvas.getBoundingClientRect().width / canvas.offsetWidth : 1;
       const data = pad.toData();
       canvas.width = canvas.offsetWidth * ratio;
       canvas.height = canvas.offsetHeight * ratio;
-      canvas.getContext('2d').scale(ratio, ratio);
+      canvas.getContext('2d').scale(ratio / zoom, ratio / zoom);
       pad.clear();
       pad.fromData(data);
     };
@@ -33,11 +36,14 @@ export default function SignatureBox({ label, required, error, onChange }){
 
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
+    // 배율만 바뀌면 캔버스의 레이아웃 크기는 그대로라 ResizeObserver가 불리지 않음
+    window.addEventListener('resize', resize);
     const onEndStroke = () => handleEndStroke();
     pad.addEventListener('endStroke', onEndStroke);
 
     return () => {
       observer.disconnect();
+      window.removeEventListener('resize', resize);
       pad.removeEventListener('endStroke', onEndStroke);
       pad.off();
     };

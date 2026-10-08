@@ -148,8 +148,9 @@ export default function ReviewModal({ open, onClose, onConfirm }){
 
 const ModalWrap = styled.dialog`
   width:1087px;
-  max-width:calc(100vw - 32px);
-  max-height:calc(100vh - 32px);
+  /* 레이아웃 배율(--zoom)이 걸려 있어도 실제 화면 크기를 넘지 않도록 배율만큼 되돌림 */
+  max-width:calc((100vw - 32px) / var(--zoom, 1));
+  max-height:calc((100vh - 32px) / var(--zoom, 1));
   margin:auto;
   padding:0;
   border:1px solid #0072B9;

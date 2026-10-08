@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { BadgeCheck, Download } from 'lucide-react';
 import { styled } from 'styled-components';
 
@@ -90,13 +91,24 @@ export default function RegistrationComplete(){
       </div>
       {downloadError && <p className='error' role='alert'>{downloadError}</p>}
 
-      {/* 캡처 전용 리포트 — 화면에는 보이지 않음 */}
-      <div className='report-holder' aria-hidden='true'>
-        <ContractReport ref={reportRef} />
-      </div>
+      {/* 캡처 전용 리포트 — 화면에는 보이지 않음. 레이아웃 배율(zoom)의 영향을 받지 않도록 body에 직접 그림 */}
+      {createPortal(
+        <ReportHolder aria-hidden='true'>
+          <ContractReport ref={reportRef} />
+        </ReportHolder>,
+        document.body,
+      )}
     </CompleteWrap>
   )
 }
+
+const ReportHolder = styled.div`
+  position:fixed;
+  top:0;
+  left:-10000px;
+  text-align:left;
+  pointer-events:none;
+`
 
 const CompleteWrap = styled.section`
   display:flex;
@@ -166,14 +178,6 @@ const CompleteWrap = styled.section`
     margin-top:16px;
     font-size:16px;
     color:#D93025;
-  }
-
-  .report-holder {
-    position:fixed;
-    top:0;
-    left:-10000px;
-    text-align:left;
-    pointer-events:none;
   }
 
   .actions {

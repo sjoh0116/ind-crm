@@ -11,9 +11,10 @@ import {
 } from '@/utils/registration.js';
 
 const EMPTY = '-';
-// 헤더가 같은 로고를 일반 <img>로 먼저 불러와 CORS 헤더 없는 응답이 캐시되므로,
-// 캡처용 요청은 쿼리를 붙여 캐시가 섞이지 않게 함
+
+// 화면 헤더가 같은 이미지를 CORS 없이 먼저 불러와 캐시하므로, 캡처용 요청은 쿼리를 붙여 구분
 const LOGO_URL = 'https://ust-india.s3.ap-northeast-2.amazonaws.com/crm/ust_logo.webp?v=report';
+const DECO_URL = 'https://ust-india.s3.ap-northeast-2.amazonaws.com/crm/header_deco.webp?v=report';
 
 function Row({ label, value }){
   return (
@@ -24,14 +25,14 @@ function Row({ label, value }){
   )
 }
 
-// 계약서 PDF 캡처용 리포트 (A4 세로, 794px 고정 폭). ref로 받은 DOM을 html2canvas로 찍는다
 export default function ContractReport({ ref }){
   const { registration } = useRegistration();
   const {
     category = {}, information = {}, plan = {}, property = {}, signatures = {},
   } = registration;
-  // CORS로 불러오지 못하면 캔버스에 그릴 수 없으므로 글자로 대체
+
   const [logoFailed, setLogoFailed] = useState(false);
+  const [decoFailed, setDecoFailed] = useState(false);
 
   const isCommercial = category.customerType === 'commercial';
   const pricing = getPricing(plan);
@@ -39,16 +40,17 @@ export default function ContractReport({ ref }){
   return (
     <ReportWrap ref={ref}>
       <header>
-        <div className='deco' aria-hidden='true'>
-          <i /><i /><i /><i />
-        </div>
+        {!decoFailed && (
+          <img className='deco' src={DECO_URL} alt='' crossOrigin='anonymous'
+            onError={() => setDecoFailed(true)} />
+        )}
         {logoFailed ? (
           <div className='logo-text'>
             <strong>UST INDIA</strong>
             <span>PEST SERVICES PRIVATE LIMITED</span>
           </div>
         ) : (
-          <img src={LOGO_URL} alt='UST India Pest Services Private Limited' crossOrigin='anonymous'
+          <img className='logo' src={LOGO_URL} alt='UST India Pest Services Private Limited' crossOrigin='anonymous'
             onError={() => setLogoFailed(true)} />
         )}
       </header>
@@ -173,32 +175,20 @@ const ReportWrap = styled.div`
     align-items: center;
     justify-content: flex-end;
     height:100px;
-    margin:0 -16px;
+    margin:0 -16px 20px;
     padding:0 30px;
     overflow:hidden;
 
-    /* 헤더 좌측 장식 (S3 이미지 대신 CSS로 그림) */
+    /* 헤더 좌측 장식 — 화면 헤더(Figma)와 같은 위치: 왼쪽으로 91px 나가고 세로 가운데 */
     .deco {
       position:absolute;
-      top:0;
-      left:0;
-      width:150px;
-      height:100%;
-
-      i {
-        position:absolute;
-        display:block;
-        border-radius:4px;
-        transform:rotate(45deg);
-      }
-
-      i:nth-child(1) { top:-40px; left:-10px; width:110px; height:110px; background:rgba(52, 142, 199, .19); }
-      i:nth-child(2) { top:-10px; left:-50px; width:100px; height:100px; background:rgba(52, 142, 199, .4); }
-      i:nth-child(3) { top:20px; left:-20px; width:90px; height:90px; background:rgba(52, 142, 199, .3); }
-      i:nth-child(4) { top:-25px; left:25px; width:100px; height:100px; background:rgba(52, 142, 199, .19); }
+      top:50%;
+      left:-91px;
+      display:block;
+      transform:translateY(-50%);
     }
 
-    img {
+    .logo {
       position:relative;
       display:block;
       height:40px;
