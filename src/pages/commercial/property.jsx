@@ -1,4 +1,5 @@
 import PropertyForm from '@/components/Register/PropertyForm.jsx';
+import { SERVICE_FREQUENCIES } from '@/pages/commercial/options.js';
 
 const PROPERTY_TYPES = [
   'Restaurant / Café',
@@ -27,22 +28,12 @@ const PROPERTY_TYPES = [
   'Other',
 ];
 
-const DEFAULT_PROPERTY_DETAILS = [
-  'Floors',
-  'Parking Area',
-  'Basement',
-  'Terrace / Rooftop',
-  'Garden / Lawn',
-  'Security Office',
-];
-
 export default function CommercialProperty(){
   return (
     <PropertyForm
       basePath='/commercial'
       propertyTypes={PROPERTY_TYPES}
-      detailsLabel='Property Details'
-      defaultDetails={DEFAULT_PROPERTY_DETAILS}
+      frequencyOptions={SERVICE_FREQUENCIES}
     />
   )
 }

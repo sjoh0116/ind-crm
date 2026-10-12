@@ -104,10 +104,10 @@ export default function ContractReport({ ref }){
               <p className='svc-title'>Service Frequency <small>(as per category)</small></p>
               {property.serviceFrequencies?.length > 0 ? (
                 <ul>
-                  {property.serviceFrequencies.map(({ service, count }) => (
+                  {property.serviceFrequencies.map(({ service, count, frequency }) => (
                     <li key={service}>
                       <span>{service}</span>
-                      <span>: {count}</span>
+                      <span>: {frequency ?? count}</span>
                     </li>
                   ))}
                 </ul>

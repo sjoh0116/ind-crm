@@ -97,10 +97,10 @@ export default function ReviewModal({ open, onClose, onConfirm }){
               <dd>
                 {property.serviceFrequencies?.length > 0 ? (
                   <ul>
-                    {property.serviceFrequencies.map(({ service, count }) => (
+                    {property.serviceFrequencies.map(({ service, count, frequency }) => (
                       <li key={service}>
                         <span>{service}</span>
-                        <span>: {count}</span>
+                        <span>: {frequency ?? count}</span>
                       </li>
                     ))}
                   </ul>

@@ -1,0 +1,15 @@
+// Commercial 화면들이 함께 쓰는 선택 목록
+
+// Plan & AMC의 Services Frequency, Property의 서비스별 횟수 셀렉트에서 사용
+export const SERVICE_FREQUENCIES = [
+  'Daily Service (365 Services/yr)',
+  'Daily Service (302 Services/yr)',
+  'Alternate Days (182 Services/yr)',
+  'Alternate Days (144 Services/yr)',
+  'Twice a Week (104 Services/yr)',
+  'Once a Week (52 Services /yr)',
+  'Monthly Services (12 Services/yr)',
+  'Quarterly (4 Services/yr)',
+  'Single Services (1 services)',
+  'Other',
+];

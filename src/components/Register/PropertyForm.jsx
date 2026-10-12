@@ -43,7 +43,11 @@ function CounterRow({ label, count, onChange, onRemove }){
 
 // Commercial / Residential 공용 Property 화면 (Plan & AMC 단계의 두 번째 화면)
 // basePath: '/commercial' | '/residential'
-export default function PropertyForm({ basePath, propertyTypes, detailsLabel, defaultDetails }){
+// 서비스별 횟수 입력 방식은 두 가지:
+//  - frequencyOptions가 있으면 서비스마다 셀렉트로 선택하고, 상세 항목(카운터 목록)은 없음 (Commercial)
+//  - 없으면 상세 항목과 서비스별 횟수를 − 0 + 카운터로 입력 (Residential)
+export default function PropertyForm({ basePath, propertyTypes, detailsLabel, defaultDetails = [], frequencyOptions }){
+  const usesFrequencySelect = Boolean(frequencyOptions);
   const navigate = useNavigate();
   // 이전 단계(Plan & AMC)에서 선택한 서비스 목록
   const { registration, saveStep } = useRegistration();
@@ -56,7 +60,7 @@ export default function PropertyForm({ basePath, propertyTypes, detailsLabel, de
     () => savedDetails ?? defaultDetails.map(name => ({ name, count: 0, custom: false })),
   );
   const [frequencies, setFrequencies] = useState(
-    () => Object.fromEntries((savedFrequencies ?? []).map(({ service, count }) => [service, count])),
+    () => Object.fromEntries((savedFrequencies ?? []).map(({ service, count, frequency }) => [service, frequency ?? count])),
   );
   const [isAdding, setIsAdding] = useState(false);
   const [newDetail, setNewDetail] = useState('');
@@ -92,8 +96,9 @@ export default function PropertyForm({ basePath, propertyTypes, detailsLabel, de
     }
   };
 
-  const setFrequency = (service, count) => {
-    setFrequencies(prev => ({ ...prev, [service]: count }));
+  // value: 카운터 방식이면 숫자, 셀렉트 방식이면 선택한 문구
+  const setFrequency = (service, value) => {
+    setFrequencies(prev => ({ ...prev, [service]: value }));
     setFrequencyError('');
   };
 
@@ -106,8 +111,12 @@ export default function PropertyForm({ basePath, propertyTypes, detailsLabel, de
 
     const data = {
       ...form,
-      propertyDetails: details,
-      serviceFrequencies: services.map(service => ({ service, count: frequencies[service] })),
+      propertyDetails: usesFrequencySelect ? [] : details,
+      serviceFrequencies: services.map(service => (
+        usesFrequencySelect
+          ? { service, frequency: frequencies[service] }
+          : { service, count: frequencies[service] }
+      )),
     };
     saveStep('property', data);
     navigate(`${basePath}/sign`);
@@ -132,58 +141,96 @@ export default function PropertyForm({ basePath, propertyTypes, detailsLabel, de
               value={form.propertySize} onChange={handleChange} />
           </Field>
 
-          <div className='field'>
-            <span className='label'>{detailsLabel}</span>
-            <ul className='counter-list'>
-              {details.map(({ name, count, custom }) => (
-                <CounterRow key={name} label={name} count={count}
-                  onChange={(next) => setDetailCount(name, next)}
-                  onRemove={custom ? () => setDetails(prev => prev.filter(item => item.name !== name)) : undefined} />
-              ))}
-            </ul>
+          {usesFrequencySelect ? (
+            <>
+              <Field id='specifications' label='Specifications'>
+                <textarea id='specifications' name='specifications' className='tall' rows={6}
+                  placeholder='e.g Rodent Bait Stations Required, etc.'
+                  value={form.specifications} onChange={handleChange} />
+              </Field>
 
-            {isAdding ? (
-              <>
-                <div className='add-box'>
-                  <input type='text' autoFocus aria-label='New property detail' placeholder='Building'
-                    aria-invalid={detailError ? 'true' : undefined}
-                    value={newDetail}
-                    onChange={(e) => { setNewDetail(e.target.value); setDetailError(''); }}
-                    onKeyDown={handleDetailKeyDown} />
-                  <button type='button' onClick={addDetail}>Add</button>
-                </div>
-                {detailError && <p className='error' role='alert'>{detailError}</p>}
-              </>
-            ) : (
-              <button type='button' className='add-more' onClick={() => setIsAdding(true)}>
-                Add more +
-              </button>
-            )}
-          </div>
+              <div className='field'>
+                <span className='label'>
+                  Services Frequency as per Category
+                  <em aria-hidden='true'>*</em>
+                </span>
+                {services.length > 0 ? (
+                  <ul className='frequency-list'>
+                    {services.map((service, i) => (
+                      <li key={service}>
+                        <label htmlFor={`serviceFrequency-${i}`}>{service}</label>
+                        <SelectBox id={`serviceFrequency-${i}`} required
+                          className={frequencies[service] ? '' : 'placeholder'}
+                          value={frequencies[service] ?? ''}
+                          onChange={(e) => setFrequency(service, e.target.value)}>
+                          <option value=''>Select frequency</option>
+                          {frequencyOptions.map(option => <option key={option} value={option}>{option}</option>)}
+                        </SelectBox>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className='empty'>No services selected. Go back to add services first.</p>
+                )}
+                {frequencyError && <p className='error' role='alert'>{frequencyError}</p>}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className='field'>
+                <span className='label'>{detailsLabel}</span>
+                <ul className='counter-list'>
+                  {details.map(({ name, count, custom }) => (
+                    <CounterRow key={name} label={name} count={count}
+                      onChange={(next) => setDetailCount(name, next)}
+                      onRemove={custom ? () => setDetails(prev => prev.filter(item => item.name !== name)) : undefined} />
+                  ))}
+                </ul>
 
-          <div className='field'>
-            <span className='label'>
-              Services Frequency
-              <em aria-hidden='true'>*</em>
-            </span>
-            {services.length > 0 ? (
-              <ul className='counter-list'>
-                {services.map(service => (
-                  <CounterRow key={service} label={service} count={frequencies[service] ?? 0}
-                    onChange={(next) => setFrequency(service, next)} />
-                ))}
-              </ul>
-            ) : (
-              <p className='empty'>No services selected. Go back to add services first.</p>
-            )}
-            {frequencyError && <p className='error' role='alert'>{frequencyError}</p>}
-          </div>
+                {isAdding ? (
+                  <>
+                    <div className='add-box'>
+                      <input type='text' autoFocus aria-label='New property detail' placeholder='Building'
+                        aria-invalid={detailError ? 'true' : undefined}
+                        value={newDetail}
+                        onChange={(e) => { setNewDetail(e.target.value); setDetailError(''); }}
+                        onKeyDown={handleDetailKeyDown} />
+                      <button type='button' onClick={addDetail}>Add</button>
+                    </div>
+                    {detailError && <p className='error' role='alert'>{detailError}</p>}
+                  </>
+                ) : (
+                  <button type='button' className='add-more' onClick={() => setIsAdding(true)}>
+                    Add more +
+                  </button>
+                )}
+              </div>
 
-          <Field id='specifications' label='Specifications' full>
-            <textarea id='specifications' name='specifications' rows={3}
-              placeholder='e.g Rodent Bait Stations Required, etc.'
-              value={form.specifications} onChange={handleChange} />
-          </Field>
+              <div className='field'>
+                <span className='label'>
+                  Services Frequency
+                  <em aria-hidden='true'>*</em>
+                </span>
+                {services.length > 0 ? (
+                  <ul className='counter-list'>
+                    {services.map(service => (
+                      <CounterRow key={service} label={service} count={frequencies[service] ?? 0}
+                        onChange={(next) => setFrequency(service, next)} />
+                    ))}
+                  </ul>
+                ) : (
+                  <p className='empty'>No services selected. Go back to add services first.</p>
+                )}
+                {frequencyError && <p className='error' role='alert'>{frequencyError}</p>}
+              </div>
+
+              <Field id='specifications' label='Specifications' full>
+                <textarea id='specifications' name='specifications' rows={3}
+                  placeholder='e.g Rodent Bait Stations Required, etc.'
+                  value={form.specifications} onChange={handleChange} />
+              </Field>
+            </>
+          )}
         </div>
 
         <StepButtons onBack={() => navigate(`${basePath}/plan`)} nextType='submit' />
@@ -344,6 +391,29 @@ const PropertyWrap = styled(FormWrap)`
     &:focus {
       border-color:#0072B9;
       box-shadow:0 0 0 3px rgba(0, 114, 185, .15);
+    }
+  }
+
+  textarea.tall {
+    min-height:270px;
+  }
+
+  /* 서비스 이름 + 횟수 셀렉트 한 줄 */
+  .frequency-list {
+    li {
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 56%);
+      align-items: center;
+      column-gap:12px;
+      min-height:88px;
+
+      label {
+        font-weight:600;
+        font-size:24px;
+        line-height:1.3;
+        color:#000;
+        word-break:break-word;
+      }
     }
   }
 
