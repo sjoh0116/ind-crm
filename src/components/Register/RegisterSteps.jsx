@@ -56,7 +56,7 @@ const StepWrap = styled.section`
     ul {
       display:flex;
       align-items: center;
-      height:90px;
+      height:102px;
 
       li {
         flex:1 1 auto;
@@ -82,13 +82,13 @@ const StepWrap = styled.section`
           align-items: center;
           justify-content: center;
           flex-shrink:0;
-          width:44px;
-          height:44px;
+          width:52px;
+          height:52px;
           border-radius:50%;
           background:#ACACAC;
           font-family:'Poppins', sans-serif;
           font-weight:600;
-          font-size:16px;
+          font-size:20px;
           color:#fff;
           transition:background .3s;
         }
@@ -96,7 +96,7 @@ const StepWrap = styled.section`
         strong {
           font-family:'Poppins', sans-serif;
           font-weight:600;
-          font-size:24px;
+          font-size:28px;
           line-height:1.2;
           color:#ACACAC;
           white-space:nowrap;

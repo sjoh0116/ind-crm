@@ -41,15 +41,15 @@ const ButtonWrap = styled.div`
     align-items: center;
     justify-content: space-between;
     gap:10px;
-    min-width:193px;
-    height:60px;
+    min-width:224px;
+    height:68px;
     white-space:nowrap;
     border-radius:6px;
     background:linear-gradient(90deg, #0A5C9C 0%, #0072B9 100%);
     box-shadow:0 2px 6px rgba(0, 0, 0, .15);
     font-family:'Poppins', sans-serif;
     font-weight:600;
-    font-size:22px;
+    font-size:26px;
     color:#fff;
     transition:opacity .2s;
 

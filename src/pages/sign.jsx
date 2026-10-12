@@ -157,7 +157,7 @@ const SignWrap = styled.section`
   font-family:'Poppins', sans-serif;
 
   .terms {
-    height:462px;
+    height:540px;
     padding:24px 60px 24px 21px;
     border:2px solid rgba(0, 114, 185, .45);
     border-radius:20px;
@@ -173,15 +173,15 @@ const SignWrap = styled.section`
     h4 {
       margin-bottom:12px;
       font-weight:700;
-      font-size:24px;
-      line-height:40px;
+      font-size:28px;
+      line-height:48px;
       color:#000;
     }
 
     .lead {
       font-weight:600;
-      font-size:20px;
-      line-height:40px;
+      font-size:24px;
+      line-height:48px;
       color:#000;
     }
 
@@ -192,8 +192,8 @@ const SignWrap = styled.section`
       li {
         list-style:inherit;
         font-weight:400;
-        font-size:20px;
-        line-height:40px;
+        font-size:24px;
+        line-height:48px;
         color:#000;
 
         &::marker {

@@ -147,7 +147,7 @@ export default function ReviewModal({ open, onClose, onConfirm }){
 }
 
 const ModalWrap = styled.dialog`
-  width:1087px;
+  width:1240px;
   /* 레이아웃 배율(--zoom)이 걸려 있어도 실제 화면 크기를 넘지 않도록 배율만큼 되돌림 */
   max-width:calc((100vw - 32px) / var(--zoom, 1));
   max-height:calc((100vh - 32px) / var(--zoom, 1));
@@ -175,13 +175,13 @@ const ModalWrap = styled.dialog`
     align-items: center;
     justify-content: center;
     flex-shrink:0;
-    height:103px;
+    height:118px;
     padding:0 90px 0 130px;
     background:url('https://ust-india.s3.ap-northeast-2.amazonaws.com/crm/header_deco.webp') left -92px top 50% no-repeat;
 
     h3 {
       font-weight:700;
-      font-size:40px;
+      font-size:48px;
       line-height:1.2;
       text-align:center;
       color:#0072B9;
@@ -214,7 +214,7 @@ const ModalWrap = styled.dialog`
     .lead {
       padding:6px 0 10px;
       font-weight:700;
-      font-size:20px;
+      font-size:24px;
       line-height:1.3;
       text-align:center;
       color:#746E6E;
@@ -227,8 +227,8 @@ const ModalWrap = styled.dialog`
         padding:0 45px;
         background:#0072B9;
         font-weight:700;
-        font-size:14px;
-        line-height:33px;
+        font-size:18px;
+        line-height:39px;
         color:#fff;
       }
 
@@ -241,12 +241,12 @@ const ModalWrap = styled.dialog`
           grid-template-columns: repeat(2, 1fr);
 
           .row {
-            grid-template-columns: 178px 1fr;
+            grid-template-columns: 214px 1fr;
           }
         }
 
         &.one-col .row {
-          grid-template-columns: 340px 1fr;
+          grid-template-columns: 404px 1fr;
         }
 
         .row {
@@ -259,22 +259,22 @@ const ModalWrap = styled.dialog`
 
           dt {
             font-weight:700;
-            font-size:14px;
-            line-height:25px;
+            font-size:18px;
+            line-height:30px;
           }
 
           dd {
             font-weight:300;
-            font-size:14px;
-            line-height:25px;
+            font-size:18px;
+            line-height:30px;
             word-break:break-word;
 
             li {
               display:grid;
-              grid-template-columns: minmax(0, 220px) auto;
+              grid-template-columns: minmax(0, 262px) auto;
               column-gap:10px;
               justify-content: start;
-              line-height:20px;
+              line-height:26px;
 
               /* 첫 줄만 ':'를 붙여 다른 행과 줄을 맞춤 */
               span:first-child::before {
@@ -306,8 +306,8 @@ const ModalWrap = styled.dialog`
 
       p {
         font-weight:300;
-        font-size:16px;
-        line-height:25px;
+        font-size:20px;
+        line-height:30px;
 
         strong {
           font-weight:700;
@@ -327,8 +327,8 @@ const ModalWrap = styled.dialog`
       input {
         appearance:none;
         flex-shrink:0;
-        width:25px;
-        height:22px;
+        width:29px;
+        height:26px;
         border:2px solid #000;
         background:#fff;
         cursor:pointer;
@@ -345,7 +345,7 @@ const ModalWrap = styled.dialog`
       }
 
       span {
-        font-size:14px;
+        font-size:18px;
         line-height:1.5;
       }
     }
@@ -358,14 +358,14 @@ const ModalWrap = styled.dialog`
       margin-top:22px;
 
       button {
-        height:60px;
+        height:68px;
         padding:0 32px;
         border-radius:10px;
         background:#0072B9;
         box-shadow:inset 0 4px 70px 0 rgba(0, 0, 0, .25);
         font-family:inherit;
         font-weight:700;
-        font-size:24px;
+        font-size:28px;
         white-space:nowrap;
         color:#FFFEFE;
         transition:opacity .2s;

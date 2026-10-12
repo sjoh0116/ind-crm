@@ -126,7 +126,7 @@ const CompleteWrap = styled.section`
   h2 {
     margin-top:26px;
     font-weight:700;
-    font-size:38px;
+    font-size:46px;
     line-height:1.3;
     color:#000;
   }
@@ -134,7 +134,7 @@ const CompleteWrap = styled.section`
   .sub {
     margin-top:14px;
     font-weight:700;
-    font-size:24px;
+    font-size:28px;
     line-height:1.4;
     color:#746E6E;
   }
@@ -159,15 +159,15 @@ const CompleteWrap = styled.section`
 
       dt {
         font-weight:700;
-        font-size:20px;
-        line-height:40px;
+        font-size:24px;
+        line-height:48px;
         color:#000;
       }
 
       dd {
         font-weight:500;
-        font-size:20px;
-        line-height:40px;
+        font-size:24px;
+        line-height:48px;
         color:#000;
         word-break:break-word;
       }
@@ -176,7 +176,7 @@ const CompleteWrap = styled.section`
 
   .error {
     margin-top:16px;
-    font-size:16px;
+    font-size:20px;
     color:#D93025;
   }
 
@@ -192,15 +192,15 @@ const CompleteWrap = styled.section`
       align-items: center;
       justify-content: center;
       gap:28px;
-      min-width:177px;
-      height:60px;
+      min-width:208px;
+      height:68px;
       padding:0 38px;
       border-radius:10px;
       background:#0072B9;
       box-shadow:inset 0 4px 70px 0 rgba(0, 0, 0, .25);
       font-family:inherit;
       font-weight:700;
-      font-size:24px;
+      font-size:28px;
       white-space:nowrap;
       color:#FFFEFE;
       transition:opacity .2s;

@@ -50,7 +50,7 @@ export const FormWrap = styled.section`
     > label,
     > .label {
       font-weight:600;
-      font-size:26px;
+      font-size:30px;
       line-height:1.2;
       color:#000;
 
@@ -67,13 +67,16 @@ export const FormWrap = styled.section`
   input[type='date'],
   select {
     width:100%;
-    height:52px;
-    padding:0 14px;
+    height:60px;
+    padding:0 16px;
     border:1px solid #333;
     border-radius:8px;
     background-color:#fff;
     font-family:inherit;
-    font-size:20px;
+    font-size:24px;
+    /* 이 Poppins 웹폰트는 g, q 등의 꼬리가 글꼴 자체의 descent보다 더 내려가서,
+       줄 높이가 작으면(전역 1.2, normal 포함) 입력칸 안에서 꼬리가 잘림 */
+    line-height:1.6;
     color:#000;
     outline:none;
     transition:border-color .2s, box-shadow .2s;
@@ -116,8 +119,8 @@ export const FormWrap = styled.section`
     input {
       appearance:none;
       flex-shrink:0;
-      width:30px;
-      height:30px;
+      width:34px;
+      height:34px;
       border:1px solid #333;
       border-radius:2px;
       background:#fff;
@@ -137,7 +140,7 @@ export const FormWrap = styled.section`
 
     span {
       font-weight:500;
-      font-size:20px;
+      font-size:24px;
       color:#666;
     }
   }

@@ -199,18 +199,18 @@ const PropertyWrap = styled(FormWrap)`
   }
 
   .counter-list {
-    max-width:561px;
+    max-width:640px;
 
     li {
       display:flex;
       align-items: center;
       gap:10px;
-      min-height:50px;
+      min-height:58px;
 
       .name {
         flex:1;
         font-weight:500;
-        font-size:20px;
+        font-size:24px;
         color:#000;
         word-break:break-word;
       }
@@ -239,8 +239,8 @@ const PropertyWrap = styled(FormWrap)`
           display:flex;
           align-items: center;
           justify-content: center;
-          width:32px;
-          height:32px;
+          width:36px;
+          height:36px;
           border-radius:50%;
           color:#000;
           transition:background .2s;
@@ -256,9 +256,9 @@ const PropertyWrap = styled(FormWrap)`
         }
 
         output {
-          min-width:28px;
+          min-width:34px;
           font-weight:600;
-          font-size:20px;
+          font-size:24px;
           text-align:center;
           color:#000;
         }
@@ -274,7 +274,7 @@ const PropertyWrap = styled(FormWrap)`
     align-self:flex-start;
     font-family:inherit;
     font-weight:500;
-    font-size:20px;
+    font-size:24px;
     color:#746E6E;
 
     &:hover {
@@ -290,25 +290,25 @@ const PropertyWrap = styled(FormWrap)`
   /* 위 카운터 목록과 같은 너비로 맞춤 */
   .add-box {
     position:relative;
-    max-width:561px;
+    max-width:640px;
 
     input {
-      height:46px;
-      padding-right:96px;
-      font-size:18px;
+      height:54px;
+      padding-right:112px;
+      font-size:22px;
     }
 
     button {
       position:absolute;
       top:1px;
       right:1px;
-      width:84px;
+      width:100px;
       height:calc(100% - 2px);
       border-radius:7px;
       background:rgba(52, 142, 199, .3);
       font-family:inherit;
       font-weight:600;
-      font-size:18px;
+      font-size:22px;
       color:#000;
       transition:background .2s;
 
@@ -324,13 +324,13 @@ const PropertyWrap = styled(FormWrap)`
 
   textarea {
     width:100%;
-    min-height:100px;
+    min-height:120px;
     padding:18px 24px;
     border:1px solid #333;
     border-radius:8px;
     background-color:#fff;
     font-family:inherit;
-    font-size:20px;
+    font-size:24px;
     line-height:1.5;
     color:#000;
     outline:none;
@@ -348,12 +348,12 @@ const PropertyWrap = styled(FormWrap)`
   }
 
   .empty {
-    font-size:18px;
+    font-size:22px;
     color:#746E6E;
   }
 
   .error {
-    font-size:16px;
+    font-size:20px;
     color:#D93025;
   }
 `

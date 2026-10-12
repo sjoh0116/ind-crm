@@ -117,7 +117,7 @@ const SectionWrap = styled.section`
 
   h4 {
     font-weight:600;
-    font-size:24px;
+    font-size:28px;
     line-height:1.2;
     color:#000;
   }
@@ -135,7 +135,7 @@ const SectionWrap = styled.section`
         align-items: flex-start;
         gap:18px;
         width:100%;
-        min-height:174px;
+        min-height:202px;
         padding:44px 36px;
         border:1px solid #999;
         border-radius:28px;
@@ -177,15 +177,15 @@ const SectionWrap = styled.section`
 
           strong {
             font-weight:600;
-            font-size:26px;
+            font-size:30px;
             line-height:1.2;
             color:#000;
           }
 
           p {
-            max-width:440px;
+            max-width:520px;
             font-weight:400;
-            font-size:18px;
+            font-size:22px;
             line-height:1.4;
             color:#000;
           }
@@ -201,20 +201,23 @@ const SectionWrap = styled.section`
 
       label {
         font-weight:600;
-        font-size:26px;
+        font-size:30px;
         line-height:1.2;
         color:#000;
       }
 
       select {
         width:100%;
-        height:52px;
-        padding:0 56px 0 14px;
+        height:60px;
+        padding:0 56px 0 16px;
         border:1px solid #333;
         border-radius:8px;
         background-color:#fff;
         font-family:inherit;
-        font-size:20px;
+        font-size:24px;
+        /* 이 Poppins 웹폰트는 g, q 등의 꼬리가 글꼴 자체의 descent보다 더 내려가서,
+           줄 높이가 작으면(전역 1.2, normal 포함) 입력칸 안에서 꼬리가 잘림 */
+        line-height:1.6;
         color:#000;
         outline:none;
         cursor:pointer;
@@ -247,14 +250,14 @@ const SectionWrap = styled.section`
       strong {
         flex-shrink:0;
         font-weight:600;
-        font-size:22px;
+        font-size:26px;
         line-height:1.8;
         color:#000;
       }
 
       p {
         font-weight:400;
-        font-size:22px;
+        font-size:26px;
         line-height:1.8;
         color:#333;
       }

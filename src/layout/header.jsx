@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export default function Header(){
@@ -5,7 +6,9 @@ export default function Header(){
     <HeaderWrap>
       <div className='inner'>
         <div className='logo'>
-          <img src='https://ust-india.s3.ap-northeast-2.amazonaws.com/crm/ust_logo.webp' alt='ust logo' />
+          <Link to='/'>
+            <img src='https://ust-india.s3.ap-northeast-2.amazonaws.com/crm/ust_logo.webp' alt='ust logo' />
+          </Link>
         </div>
         <div className='txt-desc'>
           <strong>Digital Customer Registration Form</strong>
@@ -26,13 +29,13 @@ const HeaderWrap = styled.header`
     align-items: center;
     justify-content: space-between;
     width:100%;
-    height:102px;
+    height:114px;
     padding:0 5.8% 0 220px;
 
     .logo img {
       display:block;
       width:auto;
-      height:42px;
+      height:50px;
     }
 
     .txt-desc {
@@ -44,7 +47,7 @@ const HeaderWrap = styled.header`
       strong {
         font-family:'Poppins', sans-serif;
         font-weight:600;
-        font-size:24px;
+        font-size:28px;
         line-height:1.2;
         color:#0072B9;
       }
@@ -52,7 +55,7 @@ const HeaderWrap = styled.header`
       p {
         font-family:'Poppins', sans-serif;
         font-weight:400;
-        font-size:16px;
+        font-size:20px;
         line-height:1.2;
         color:#000;
       }

@@ -369,7 +369,7 @@ const PlanWrap = styled(FormWrap)`
 
   .field > .label {
     font-weight:600;
-    font-size:26px;
+    font-size:30px;
     line-height:1.2;
     color:#000;
   }
@@ -380,13 +380,13 @@ const PlanWrap = styled(FormWrap)`
 
     button {
       flex:1;
-      height:59px;
+      height:68px;
       border:1px solid rgba(0, 0, 0, .15);
       border-radius:10px;
       background:#fff;
       font-family:inherit;
       font-weight:700;
-      font-size:24px;
+      font-size:28px;
       color:#000;
       transition:background .2s, color .2s, border-color .2s;
 
@@ -462,7 +462,7 @@ const PlanWrap = styled(FormWrap)`
   }
 
   .error {
-    font-size:16px;
+    font-size:20px;
     color:#D93025;
   }
 
@@ -472,7 +472,7 @@ const PlanWrap = styled(FormWrap)`
     left:0;
     z-index:10;
     width:100%;
-    max-height:264px;
+    max-height:316px;
     padding:6px 0;
     border:1px solid #333;
     border-radius:8px;
@@ -481,8 +481,8 @@ const PlanWrap = styled(FormWrap)`
     overflow-y:auto;
 
     li {
-      padding:10px 14px;
-      font-size:18px;
+      padding:10px 16px;
+      font-size:22px;
       color:#000;
       cursor:pointer;
 
@@ -502,7 +502,7 @@ const PlanWrap = styled(FormWrap)`
       display:flex;
       align-items: center;
       gap:6px;
-      min-height:48px;
+      min-height:56px;
       max-width:100%;
 
       button {
@@ -527,7 +527,7 @@ const PlanWrap = styled(FormWrap)`
 
       span {
         font-weight:500;
-        font-size:20px;
+        font-size:24px;
         color:#746E6E;
       }
     }

@@ -91,7 +91,7 @@ const SignatureWrap = styled.div`
   .label {
     margin-bottom:14px;
     font-weight:600;
-    font-size:26px;
+    font-size:30px;
     line-height:1.2;
     color:#000;
 
@@ -136,7 +136,7 @@ const SignatureWrap = styled.div`
       align-items: center;
       justify-content: center;
       padding-bottom:20px;
-      font-size:18px;
+      font-size:22px;
       line-height:2;
       text-align:center;
       color:#9A9A9A;
@@ -152,14 +152,14 @@ const SignatureWrap = styled.div`
     margin-top:8px;
 
     .error {
-      font-size:16px;
+      font-size:20px;
       color:#D93025;
     }
 
     .clear {
       margin-left:auto;
       font-family:inherit;
-      font-size:16px;
+      font-size:20px;
       color:#B00000;
 
       &:hover:not(:disabled) {
