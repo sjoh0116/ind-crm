@@ -6,6 +6,7 @@ import { styled } from 'styled-components';
 import StepButtons from '@/components/Register/StepButtons.jsx';
 import { useRegistration } from '@/context/RegistrationContext.jsx';
 import { SKIP_VALIDATION } from '@/config.js';
+import { SERVICE_OPTIONS } from '@/constants/services.js';
 import SelectBox from '@/components/Register/SelectBox.jsx';
 import { Field, FormWrap, useInfoForm } from '@/components/Register/InfoForm.jsx';
 
@@ -14,23 +15,6 @@ const PLAN_TYPES = [
   { id: 'onetime', label: 'One-Time Service' },
 ];
 
-const SERVICE_OPTIONS = [
-  'Pre-Termite Management',
-  'Post-Termite Management',
-  'Pigeon Netting',
-  'Pigeon Spike',
-  'Mosquito Netting',
-  'Cockroach Management',
-  'Ants Management',
-  'Mosquitoes Management',
-  'Flies Management',
-  'Rodents / Rats Management',
-  'Bed Bugs Management',
-  'Spiders Management',
-  'Lizard Management',
-  'Wasps / Bees Management',
-  'Snake Management',
-];
 // One-Time Service의 고정 서비스 횟수 — 각 화면의 serviceFrequencies 목록에도 같은 표기로 들어 있어야 함
 const SINGLE_SERVICE_FREQUENCY = 'Single Services (1 services)';
 const PAYMENT_MODES = [

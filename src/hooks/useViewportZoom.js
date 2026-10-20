@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react';
 
-// 1920px 너비에서 67%로 보이고, 화면 너비에 비례해 배율이 바뀜
-// (어느 너비에서든 화면이 1920 / 0.67 ≒ 2866px 폭으로 설계된 것처럼 같은 비율로 보임)
-const BASE_WIDTH = 1920;
-const BASE_ZOOM = 0.67;
-// 너무 작거나 커지지 않도록 제한 (약 1000px ~ 2866px 너비 구간에서 비례)
-const MIN_ZOOM = 0.35;
-const MAX_ZOOM = 1;
-
-const getZoom = () => {
-  const zoom = (window.innerWidth / BASE_WIDTH) * BASE_ZOOM;
-  return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom));
+// 화면 너비에 비례하는 배율. baseWidth에서 baseZoom이 되고, min~max 사이로 제한
+// 기본값(Onboarding): 1920px에서 67% — 어느 너비에서든 1920 / 0.67 ≒ 2866px 폭으로 설계된 것처럼 보임
+const getZoom = ({ baseWidth, baseZoom, min, max }) => {
+  const zoom = (window.innerWidth / baseWidth) * baseZoom;
+  return Math.min(max, Math.max(min, zoom));
 };
 
-export default function useViewportZoom(){
-  const [zoom, setZoom] = useState(getZoom);
+export default function useViewportZoom({
+  baseWidth = 1920,
+  baseZoom = 0.67,
+  min = 0.35,
+  max = 1,
+} = {}){
+  const [zoom, setZoom] = useState(() => getZoom({ baseWidth, baseZoom, min, max }));
 
   useEffect(() => {
-    const handleResize = () => setZoom(getZoom());
+    const handleResize = () => setZoom(getZoom({ baseWidth, baseZoom, min, max }));
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [baseWidth, baseZoom, min, max]);
 
   return zoom;
 }
